@@ -16,19 +16,19 @@ public class Main {
 
     private static boolean isDescendant(String t, String s) {
         char[] tArr = t.toCharArray();
+        char[] sArr = s.toCharArray();
+
         int i = 0;
 
-        firstLoop:
-        for (char sEl : s.toCharArray()) {
-            for (; i < tArr.length; i++)
-                if (sEl == tArr[i]) {
-                    i++;
-                    continue firstLoop;
+        for (int j = 0; j < tArr.length; j++) {
+            if(tArr[j] == sArr[i]) {
+                i++;
+                if(i == sArr.length) {
+                    return true;
                 }
-            return false;
+            }
         }
-
-        return true;
+        return false;
     }
 
     private static void writeToFile(String valueToWrite) throws IOException {

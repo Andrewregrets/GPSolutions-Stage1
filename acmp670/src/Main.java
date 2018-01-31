@@ -6,8 +6,8 @@ public class Main {
     public static void main(String[] args) throws IOException {
         int sourceN = readIntFromFile();
 
-        int resultN = FindNumber(sourceN);
-
+        int resultN;
+        resultN = FindNumber(sourceN);
         writeToFile(Integer.toString(resultN));
     }
 
@@ -17,20 +17,24 @@ public class Main {
 
         while (resultPosition < sourceN) {
             resultN++;
-            if(!hasDuplicateDigits(Integer.toString(resultN).toCharArray()))
+            if(!hasDuplicateDigits(resultN))
                 resultPosition++;
         }
 
         return resultN;
     }
 
-    private static boolean hasDuplicateDigits(char[] digits) {
-        int numberOfDigits = digits.length;
+    private static boolean hasDuplicateDigits(int number) {
+        final int MAX_DECIMAL_DIGITS_IN_INT = 10;
+        boolean[] flagArr = new boolean[MAX_DECIMAL_DIGITS_IN_INT];
 
-        for (int i = 0; i < numberOfDigits-1; i++)
-            for (int j = i + 1; j < numberOfDigits; j++)
-                if(digits[i] == digits[j])
-                    return true;
+        while (number > 0) {
+            int r = number % 10;
+            if (flagArr[r])
+                return true;
+            else flagArr[r] = true;
+            number /= 10;
+        }
 
         return false;
     }
